@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+    <link rel="stylesheet" type="text/css" href="__COMM__/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="__COMM__/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="__COMM__/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="__COMM__/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="__COMM__/static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+    <title>编辑</title>
+    <link href="__COMM__/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="page-container">
+        <form class="form form-horizontal" id="form-article-add">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>标题：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input maxlength="100" type="text" class="input-text" value="{$info.title}" placeholder="" id="title" name="title">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>内容：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <textarea class="input-text" maxlength="500" id="content" name="content" style="width: 500px;height:200px;">{$info.content}</textarea>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>苗圃地址：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <textarea class="input-text" maxlength="60" name="address" style="width: 500px;height:100px;" id="address">{$info.address}</textarea>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>联系人姓名：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input maxlength="40" type="text" class="input-text" value="{$info.name}" placeholder="" id="name" name="name">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>联系电话：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input onblur="checkphone()" maxlength="11" type="text" class="input-text" value="{$info.phone}" placeholder="" id="phone" name="phone">
+                </div>
+            </div>
+
+            <input hidden  type="text" class="input-text" value="{$info.id}" placeholder="" id="userid" name="id">
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                    <button onClick="article_save();" class="btn btn-secondary radius" type="button"><i
+                            class="Hui-iconfont">&#xe632;</i> 确认更新</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <!--_footer 作为公共模版分离出去-->
+    <script type="text/javascript" src="__COMM__/lib/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="__COMM__/lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="__COMM__/static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="__COMM__/static/h-ui.admin/js/H-ui.admin.js"></script>
+    <!--/_footer /作为公共模版分离出去-->
+
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="__COMM__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__COMM__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__COMM__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript" src="__COMM__/lib/webuploader/0.1.5/webuploader.min.js"></script>
+    <script type="text/javascript">
+           //验证手机号
+           function checkphone() {
+            if(isPhoneNo($('#phone').val())==false){
+            $('#phone').focus();
+            layer.msg('手机号格式错误！')
+            }
+
+        }
+        // 验证手机号
+        function isPhoneNo(phone) {
+            var rex = /^1[3-9]+\d{9}$/;
+                if (rex.test(phone)) {
+                    return true;
+                } else {
+                    return false;
+                }
+        }
+        function article_save() {
+            if($('#name').val().trim()==''){
+                $('#name').focus();
+                layer.msg('姓名不能为空！')     
+            }
+            else if($('#phone').val().trim()==''){
+                $('#phone').focus();
+                layer.msg('手机号不能为空！')
+            }
+            else if($('#title').val().trim()==''){
+                $('#title').focus();
+                layer.msg('标题不能为空！')
+            }
+            else if($('#content').val().trim()==''){
+                $('#content').focus();
+                layer.msg('内容不能为空！')
+            } else if($('#address').val().trim()==''){
+                $('#address').focus();
+                layer.msg('地址不能为空！')
+            }
+            else{
+
+                $.ajax({
+                url:'{:url("Sell1/doEdit")}',
+                data:$('#form-article-add').serialize(),
+                type:"POST",
+                dataType:'json',
+                success:function(res)
+                {
+                    console.log(res)
+                    if(res.msg==1){
+                    layer.msg('更新成功！',{
+                                icon:6
+                            }) 
+                    setTimeout(function(){
+                        window.parent.location.reload();
+                    },1000)   
+
+                    }else{
+                        layer.msg('更新失败！请重试') 
+                    }
+
+                },
+                fail:function()
+                {
+                    layer.msg('更新失败！')
+                }
+
+            })
+            }
+
+
+        }
+
+
+    </script>
+</body>
+
+</html>
