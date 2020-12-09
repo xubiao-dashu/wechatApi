@@ -4,6 +4,7 @@ namespace app\index\controller;
 use app\common\controller\Base;
 use app\index\model\Buy;
 use app\index\model\Lunbo;
+use app\index\model\Voice;
 use app\index\model\Member;
 use app\index\model\Faqtext;
 use app\index\model\Sell;
@@ -103,11 +104,13 @@ class V1 extends Base
     // 音频列表接口
     public function voiceList()
     {
-        $data = Lunbo::all(function ($query) {
-            $query->where('type', 'egt', 2)->order(['sort'=>'asc']);
+        $data = Voice::all(function ($query) {
+            $query->where('status', 'egt', 1);
         });
+		// dump($data);
         return json_encode($data);
     }
+	
     //最新求购接口
     public function buyList()
     {
