@@ -39,6 +39,7 @@ Route::rule('login','index/V1/login');//会员登录
 
 /** 小程序接口 */
 Route::rule('voicelist','index/V1/voiceList');//音频列表
+Route::rule('getVoiceById', 'index/V1/getVoiceById'); // 通过id查询音频
 return [
     '__pattern__' => [
         'name' => '\w+',

@@ -110,6 +110,13 @@ class V1 extends Base
 		// dump($data);
         return json_encode($data);
     }
+    // 通过音频id查询
+    public function getVoiceById()
+    {
+        $get = $this->request->param();
+        $data = Db::name('voice')->where('id', 'eq',  $get['id'])->find();
+        return json_encode($data);
+    }
 	
     //最新求购接口
     public function buyList()
