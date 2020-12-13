@@ -38,7 +38,10 @@ Route::rule('reg','index/V1/register');//会员注册
 Route::rule('login','index/V1/login');//会员登录
 
 /** 小程序接口 */
-Route::rule('voicelist','index/V1/voiceList');//音频列表
+Route::rule('voicelist','index/V1/voiceList');//电台音频列表
+Route::rule('voicelist2','index/V1/voiceList2');//音乐列表
+Route::rule('voicelist3','index/V1/voiceList3');//文章列表
+Route::rule('voicelist4','index/V1/voiceList4');//最新推荐列表
 Route::rule('getVoiceById', 'index/V1/getVoiceById'); // 通过id查询音频
 return [
     '__pattern__' => [

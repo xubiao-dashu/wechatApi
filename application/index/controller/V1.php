@@ -101,15 +101,38 @@ class V1 extends Base
         });
         return json_encode($data);
     }
-    // 音频列表接口
+    // 电台音频列表接口
     public function voiceList()
     {
-        $data = Voice::all(function ($query) {
-            $query->where('status', 'egt', 1);
-        });
-		// dump($data);
+        $data = Db::table('mh_voice')
+                ->where('type=1 AND status=1')
+                ->select();
         return json_encode($data);
     }
+     // 歌曲音频列表接口
+     public function voiceList2()
+     {
+        $data = Db::table('mh_voice')
+        ->where('type=2 AND status=1')
+        ->select();
+         return json_encode($data);
+     }
+      // 文章列表接口
+      public function voiceList3()
+      {
+         $data = Db::table('mh_voice')
+         ->where('type=3 AND status=1')
+         ->select();
+          return json_encode($data);
+      }
+      // 最新推荐列表接口
+      public function voiceList4()
+      {
+         $data = Db::table('mh_voice')
+         ->where('isnew=1 AND status=1')
+         ->select();
+          return json_encode($data);
+      }
     // 通过音频id查询
     public function getVoiceById()
     {
